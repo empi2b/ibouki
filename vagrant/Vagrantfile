@@ -1,0 +1,26 @@
+#!/usr/bin/ruby
+#Vagrant.require_version ">= 1.5.0"
+Vagrant.configure("2") do |config|
+
+    config.vm.box = 'stanleygibbons/centos-6.5-dev'
+    config.vm.box_url = 'https://s3.amazonaws.com/stanley-gibbons-vagrant-images/centos-6.5/centos-6.5-dev-x86_64-v1.0.7.box'
+    #config.vm.box_version = '1.0.7'
+    #config.vm.box = 'centos-6.5-x86_64-test'
+
+    config.vm.define :ibouki do |config|
+        config.vm.hostname = "ibouki-web.localdomain"
+        config.vm.network :private_network, ip: "192.168.33.20"
+        config.vm.network :forwarded_port, guest: 9200, host: 9200
+
+        # setting files at 774 for right now due to a bug in virtualbox shared files where chmod doesn't work on guest OS
+        config.vm.synced_folder "./../", "/usr/share/nginx/www/sites/ibouki", id: "vagrant-root", :owner => "vagrant", :group => "www-data", :mount_options => ["dmode=775","fmode=774"]
+
+        config.vm.provider :virtualbox do |vb|
+            vb.memory = 2048
+        end
+
+        # simply shell script provisioning (which is executed as root by default so we're golden!)
+        config.vm.provision "shell", path: "provision.sh"
+    end
+
+end
