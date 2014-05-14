@@ -67,7 +67,6 @@ chmod 700 "/home/vagrant/.ssh"
 chmod -R 600 "/home/vagrant/.ssh/"*
 chmod 644 "/home/vagrant/.ssh/known_hosts"
 chmod +x "/usr/share/nginx/www/sites/ibouki/phpunit.sh"
-chmod +x "/usr/share/nginx/www/sites/ibouki/post_npm.sh"
 
 echo "rebooting services"
 service php-fpm restart
