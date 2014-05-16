@@ -15,12 +15,12 @@ use Symfony\Component\Routing\Router;
  * @package Calldirek\UserBundle\Services
  * @author Emmanuel G Piard <empi2b@gmail.com>
  */
-class LoginHandler implements AuthenticationSuccessHandlerInterface
+class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     protected $router;
     protected $security;
 
-    public function __construct(Router $router, SecurityContext $security)
+    public function __construct(SecurityContext $security, Router $router)
     {
         $this->router = $router;
         $this->security = $security;
@@ -28,36 +28,23 @@ class LoginHandler implements AuthenticationSuccessHandlerInterface
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        if($this->security->isGranted('ROLE_USER')){
+        if($this->security->isGranted('ROLE_SUPER_ADMIN')){
+
             $response = new RedirectResponse($this->router->generate('fos_user_profile'));
+
         } elseif($this->security->isGranted('ROLE_ADMIN')){
+
             $response = new RedirectResponse($this->router->generate('fos_user_profile'));
+
+        } elseif($this->security->isGranted('ROLE_USER')){
+
+            $referrerUrl = $request->headers->get('referrer');
+            $response = new RedirectResponse($referrerUrl);
+
         }
+
+        return $response;
+
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-} 
+}

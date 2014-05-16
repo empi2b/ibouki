@@ -1,9 +1,10 @@
 {% extends "UserBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/user/css/login.css') }}" type="text/css" media="all" />
+{% endblock %}
+
 {% block fos_user_content %}
-    {% if error %}
-        <div>{{ error }}</div>
-    {% endif %}
 
     <!-- Navigation Bar -->
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,9 +21,11 @@
 
                 <div class="nav-collapse collapse pull-right">
                     <ul class="nav">
-                        <li><a href="#forgot" data-toggle="modal"><i class="icon-user icon-white"></i> Forgot Password</a></li>
+                        <li><a href="#forgot" data-toggle="modal"><i class="icon-user icon-white"></i> Forgot
+                                Password</a></li>
                         <li class="divider-vertical"></li>
-                        <li><a href="#contact" data-toggle="modal"><i class="icon-envelope icon-white"></i> Contact Us</a></li>
+                        <li><a href="#contact" data-toggle="modal"><i class="icon-envelope icon-white"></i> Contact
+                                Us</a></li>
                         <li class="divider-vertical"></li>
 
                     </ul>
@@ -39,17 +42,23 @@
             <div class="row ">
                 <div class="center span4 well">
                     <legend>Please Sign In</legend>
-                    <div class="alert alert-error">
-                        <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
-                    </div>
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            <a class="close" data-dismiss="alert" href="#">×</a>{{ error|trans({}, 'FOSUserBundle') }}
+                        </div>
+                    {% endif %}
                     <form method="POST" action="{{ path("fos_user_security_check") }}" accept-charset="UTF-8">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                        <input type="text" id="username" class="form-control input-lg" name="username" placeholder="Username" /><br />
-                        <input type="password" id="password" class="form-control input-lg" name="password" placeholder="Password" />
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                        <input type="text" id="username" class="form-control input-lg" name="_username"
+                               placeholder="Username" required="required"/><br/>
+                        <input type="password" id="password" class="form-control input-lg" name="_password"
+                               placeholder="Password" required="required"/>
                         <label class="checkbox">
-                            <input type="checkbox" name="remember" id="remember_me" value="on" />{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                            <input type="checkbox" name="_remember_me" id="remember_me"
+                                   value="on"/>{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
                         </label>
-                        <button type="submit" name="submit" id="_submit" class="btn btn-primary btn-block">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                        <button type="submit" name="submit" id="_submit"
+                                class="btn btn-primary btn-block">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
                     </form>
                 </div>
             </div>
@@ -62,13 +71,15 @@
     <div id="forgot" class="modal hide fade in" style="display: none; ">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
+
             <h3>Forgot Password</h3>
         </div>
         <div class="modal-body">
             <p>Enter your username to reset the password</p>
+
             <form>
                 <div class="controls controls-row">
-                    <input id="name" name="name" type="text" class="span3" placeholder="Name" />
+                    <input id="name" name="name" type="text" class="span3" placeholder="Name"/>
                 </div>
 
             </form>
@@ -84,16 +95,17 @@
     <div id="contact" class="modal hide fade in" style="display: none; ">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
+
             <h3>Contact Us</h3>
         </div>
         <div class="modal-body">
             <form>
                 <div class="controls controls-row">
-                    <input id="name" name="name" type="text" class="span3" placeholder="Name" />
+                    <input id="name" name="name" type="text" class="span3" placeholder="Name"/>
                 </div>
 
                 <div class="controls controls-row">
-                    <input id="email" name="email" type="email" class="span3" placeholder="Email address" />
+                    <input id="email" name="email" type="email" class="span3" placeholder="Email address"/>
                 </div>
 
                 <div class="controls">

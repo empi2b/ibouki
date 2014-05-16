@@ -1,12 +1,36 @@
 parameters:
 #    user.example.class: Calldirek\UserBundle\Example
-    security.authentication.success_handler.class:  Calldirek\UserBundle\Services\LoginHandler
+    user.authentication.success_handler.class:  Calldirek\UserBundle\Services\LoginSuccessHandler
+    user.logout.success_handler.class:  Calldirek\UserBundle\Services\LogoutSuccessHandler
+
 
 services:
 #    user.example:
 #        class: %user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-    security.authentication.customized_success_handle:
-        class:  %security.authentication.success_handler.class%
-        public: false
-        arguments: [@router, @security.context]
+    user.authentication.success_handler:
+        class: %user.authentication.success_handler.class%
+        arguments: [@security.context, @router]
+
+    user.logout.success_handler:
+        class: %user.logout.success_handler.class%
+
+
+
+
+
+#parameters:
+    #ccdn_user_security.component.authentication.handler.login_failure_handler.class: CCDNUser\SecurityBundle\Component\Authentication\Handler\LoginFailureHandler
+    #ccdn_user_security.component.authentication.handler.logout_success_handler.class: CCDNUser\SecurityBundle\Component\Authentication\Handler\LogoutSuccessHandler
+
+#services:
+    #ccdn_user_security.component.authentication.handler.login_failure_handler:
+        #class:  %ccdn_user_security.component.authentication.handler.login_failure_handler.class%
+        #arguments:  [@service_container, @router, @security.context]
+        #tags:
+            #- { name: 'monolog.logger', channel: 'security' }
+    #ccdn_user_security.component.authentication.handler.logout_success_handler:
+        #class:  %ccdn_user_security.component.authentication.handler.logout_success_handler.class%
+        #arguments:  [@service_container, @router]
+        #tags:
+            #- { name: 'monolog.logger', channel: 'security' }
