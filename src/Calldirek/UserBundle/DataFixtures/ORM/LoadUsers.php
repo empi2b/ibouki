@@ -11,6 +11,7 @@ namespace Calldirek\UserBundle\DataFixures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Calldirek\UserBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadUsers implements FixtureInterface
 {

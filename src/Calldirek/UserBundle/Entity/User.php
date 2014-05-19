@@ -22,6 +22,15 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="agentId", type="integer", length=11)
+     *
+     */
+    private $agentId;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
@@ -86,9 +95,24 @@ class User extends BaseUser
         parent::__construct();
     }
 
-    public function getSalt()
+
+    /**
+     * @param int $agentId
+     *
+     * @return User
+     */
+    public function setAgentId($agentId)
     {
-        return null;
+        $this->agentId = $agentId;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAgentId()
+    {
+        return $this->agentId;
     }
 
     /**
