@@ -28,19 +28,26 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
+        $response = null;
+
         if($this->security->isGranted('ROLE_SUPER_ADMIN')){
 
-            $response = new RedirectResponse($this->router->generate('fos_user_profile'));
+            $response = new RedirectResponse($this->router->generate('fos_user_profile_show'));
 
         } elseif($this->security->isGranted('ROLE_ADMIN')){
 
-            $response = new RedirectResponse($this->router->generate('fos_user_profile'));
+
+            $response = new RedirectResponse($this->router->generate('fos_user_profile_show'));
 
         } elseif($this->security->isGranted('ROLE_USER')){
 
             $referrerUrl = $request->headers->get('referrer');
-            $response = new RedirectResponse($referrerUrl);
 
+            if($referrerUrl){
+                $response = new RedirectResponse($referrerUrl);
+            } else {
+                $response = new RedirectResponse($this->router->generate('fos_user_profile'));
+            }
         }
 
         return $response;

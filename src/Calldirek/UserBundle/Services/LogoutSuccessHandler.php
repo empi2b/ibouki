@@ -5,7 +5,6 @@ namespace Calldirek\UserBundle\Services;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Router;
@@ -18,6 +17,12 @@ use Symfony\Component\Routing\Router;
 class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
 {
 
+    private $router;
+
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
     /**
      * Creates a Response object to send upon a successful logout.
      *
@@ -28,7 +33,14 @@ class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
     public function onLogoutSuccess(Request $request)
     {
         $referrerUrl = $request->headers->get('referrer');
-        $response = new RedirectResponse($referrerUrl);
+
+        if($referrerUrl){
+            $response = new RedirectResponse($referrerUrl);
+        } else {
+
+            $response = new RedirectResponse($this->router->generate('fos_user_security_login'));
+        }
+
         return $response;
     }
 }

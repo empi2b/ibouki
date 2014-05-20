@@ -15,7 +15,10 @@ exec &> >(tee "${LOG_FILE}")
 echo "begin provisioning"
 
 echo "configuring php"
+
 sed -i 's/;date.timezone.*=/date.timezone = UTC/' "/etc/php.ini"
+yum -y update
+yum -y install php-mbstring
 
 echo "configuring php-fpm"
 sed -i 's/listen\s*=\s*.*/listen = \/var\/run\/php-fpm\/php-fpm.sock/' "/etc/php-fpm.d/www.conf"

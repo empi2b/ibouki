@@ -24,7 +24,7 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="agentId", type="integer", length=11)
+     * @ORM\Column(name="agentId", type="integer", length=11, nullable=true)
      *
      */
     private $agentId;
