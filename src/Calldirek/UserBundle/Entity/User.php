@@ -4,6 +4,8 @@ namespace Calldirek\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * User
  *
@@ -24,7 +26,9 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="agentId", type="integer", length=11, nullable=true)
+     * @ORM\Column(name="agentId", type="integer", length=11)
+     * @Assert\NotBlank(message="Please enter a valid agentId.", groups={"Registration, "Profile"})
+     * @Assert\Regex(pattern="/\d+/")
      *
      */
     private $agentId;
@@ -33,7 +37,8 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
+     * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\NotBlank(message="Please enter a first name", groups={"Registration", "Profile"})
      */
     private $firstName;
 
@@ -41,6 +46,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please enter a last name", groups={"Registration", "Profile"})
      */
     private $lastName;
 
@@ -48,6 +54,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please enter a first name", groups={"Registration", "Profile"})
+     * @Assert\MinLength(limit="10", message="phone number should be 10 digits long", groups={"Registration", "Profile"})
+     * @Assert\MaxLength(limit="10", message="phone number should be 10 digits long", groups={"Registration", "Profile"})
      */
     private $phoneNumber;
 
@@ -55,6 +64,8 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please enter an address", groups={"Registration", "Profile"})
+     *
      */
     private $address;
 
@@ -62,6 +73,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please enter a city", groups={"Registration", "Profile"})
      */
     private $city;
 
@@ -69,6 +81,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="state", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please select a state", groups={"Registration", "Profile"})
      */
     private $state;
 
@@ -77,17 +90,11 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="zipCode", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Please enter a zip code", groups={"Registration", "Profile"})
+     * @Assert\MinLength(limit="10", message="zip code must be 5 digits long", groups={"Registration", "Profile"})
+     * @Assert\MaxLength(limit="10", message="zip code must be 5 digits long", groups={"Registration", "Profile"})
      */
     private $zipCode;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="country", type="string", length=255, nullable=true)
-     */
-    private $country;
-
 
 
     public function __construct()
@@ -263,28 +270,6 @@ class User extends BaseUser
         return $this->state;
     }
 
-    /**
-     * Set country
-     *
-     * @param string $country
-     * @return User
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
 
     /**
      * @param string $zipCode
