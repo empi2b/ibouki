@@ -72,3 +72,9 @@ fos_user:
     db_driver: orm
     firewall_name: secured_area
     user_class: Calldirek\UserBundle\Entity\User
+    registration:
+        form:
+            type: calldirek_user_registration
+            handler: user.registration.form.hanlder
+
+

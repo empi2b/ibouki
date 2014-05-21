@@ -27,9 +27,8 @@ class User extends BaseUser
      * @var integer
      *
      * @ORM\Column(name="agentId", type="integer", length=11)
-     * @Assert\NotBlank(message="Please enter a valid agentId.", groups={"Registration, "Profile"})
-     * @Assert\Regex(pattern="/\d+/")
-     *
+     * @Assert\NotBlank(message="Please enter a valid agentId.", groups={"Registration"})
+     * @Assert\Type(type="integer", message="AgentId must be numeric.")
      */
     private $agentId;
 
@@ -45,7 +44,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lastName", type="string", length=255)
      * @Assert\NotBlank(message="Please enter a last name", groups={"Registration", "Profile"})
      */
     private $lastName;
@@ -53,17 +52,17 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="phoneNumber", type="string", length=255, nullable=true)
+     * @ORM\Column(name="phoneNumber", type="string", length=255)
      * @Assert\NotBlank(message="Please enter a first name", groups={"Registration", "Profile"})
-     * @Assert\MinLength(limit="10", message="phone number should be 10 digits long", groups={"Registration", "Profile"})
-     * @Assert\MaxLength(limit="10", message="phone number should be 10 digits long", groups={"Registration", "Profile"})
+     * @Assert\Length(min="10", minMessage="phone number must be minimum 10 digits long", groups={"Registration", "Profile"})
+     * @Assert\Length(max="10", maxMessage="phone number must be max 10 digits long", groups={"Registration", "Profile"})
      */
     private $phoneNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @ORM\Column(name="address", type="string", length=255)
      * @Assert\NotBlank(message="Please enter an address", groups={"Registration", "Profile"})
      *
      */
@@ -72,7 +71,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     * @ORM\Column(name="city", type="string", length=255)
      * @Assert\NotBlank(message="Please enter a city", groups={"Registration", "Profile"})
      */
     private $city;
@@ -80,7 +79,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="state", type="string", length=255, nullable=true)
+     * @ORM\Column(name="state", type="string", length=255)
      * @Assert\NotBlank(message="Please select a state", groups={"Registration", "Profile"})
      */
     private $state;
@@ -89,12 +88,37 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="zipCode", type="string", length=255, nullable=true)
+     * @ORM\Column(name="zipCode", type="integer", length=5)
      * @Assert\NotBlank(message="Please enter a zip code", groups={"Registration", "Profile"})
-     * @Assert\MinLength(limit="10", message="zip code must be 5 digits long", groups={"Registration", "Profile"})
-     * @Assert\MaxLength(limit="10", message="zip code must be 5 digits long", groups={"Registration", "Profile"})
+     * @Assert\Length(min="5", minMessage="zip code must be 5 digits long", groups={"Registration", "Profile"})
+     * @Assert\Length(max="5", maxMessage="zip code must be 5 digits long", groups={"Registration", "Profile"})
+     * @Assert\Type(type="integer", message="Zip code must be numeric")
      */
     private $zipCode;
+
+    /**
+     * @var \Datetime
+     * @ORM\Column(type="datetime")
+     */
+    private $createdDate;
+
+    /**
+     * @var \Datetime
+     * @ORM\Column(type="datetime")
+     */
+    private $lastUpdated;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $createdBy;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastUpdatedBy;
 
 
     public function __construct()
@@ -102,6 +126,78 @@ class User extends BaseUser
         parent::__construct();
     }
 
+
+    /**
+     * @param string $createdBy
+     * @return User
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param string $lastUpdatedBy
+     * @return User
+     */
+    public function setLastUpdatedBy($lastUpdatedBy)
+    {
+        $this->lastUpdatedBy = $lastUpdatedBy;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastUpdatedBy()
+    {
+        return $this->lastUpdatedBy;
+    }
+
+    /**
+     * @param \Datetime $createdDate
+     * @return User
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+        return $this;
+    }
+
+    /**
+     * @return \Datetime
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * @param \Datetime $lastUpdated
+     * @return User
+     */
+    public function setLastUpdated($lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
+        return $this;
+    }
+
+    /**
+     * @return \Datetime
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
 
     /**
      * @param int $agentId
