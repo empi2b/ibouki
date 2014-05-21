@@ -2,6 +2,8 @@ parameters:
 #    user.example.class: Calldirek\UserBundle\Example
     user.authentication.success_handler.class:  Calldirek\UserBundle\Services\LoginSuccessHandler
     user.logout.success_handler.class:  Calldirek\UserBundle\Services\LogoutSuccessHandler
+    user.registration.form.type.class: Calldirek\UserBundle\Form\UserType
+    user.registration.form.handler.class: Calldirek\UserBundle\Form\Handler\RegistrationFormHandler
 
 
 services:
@@ -15,3 +17,16 @@ services:
     user.logout.success_handler:
         class: %user.logout.success_handler.class%
         arguments: [@router]
+
+    user.registration.form.type.service:
+        class: %user.registration.form.type.class%
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: calldirek_user_registration }
+
+    user.registration.form.hanlder:
+        class: %user.registration.form.handler.class%
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
+        scope: request
+        public: false
+
