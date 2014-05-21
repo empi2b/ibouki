@@ -76,5 +76,6 @@ fos_user:
         form:
             type: calldirek_user_registration
             handler: user.registration.form.hanlder
+            validation_groups: [Registration, Default]
 
 
