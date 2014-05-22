@@ -2,7 +2,7 @@ parameters:
 #    user.example.class: Calldirek\UserBundle\Example
     user.authentication.success_handler.class:  Calldirek\UserBundle\Services\LoginSuccessHandler
     user.logout.success_handler.class:  Calldirek\UserBundle\Services\LogoutSuccessHandler
-    user.registration.form.type.class: Calldirek\UserBundle\Form\UserType
+    user.registration.form.type.class: Calldirek\UserBundle\Form\RegistrationForm
     user.registration.form.handler.class: Calldirek\UserBundle\Form\Handler\RegistrationFormHandler
 
 
