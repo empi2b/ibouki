@@ -29,10 +29,6 @@ class HomepageController extends Controller
 
         }
 
-        echo 'Status = '.$response->getStatusCode().'<br />';
-        echo 'Reason Phrase = '.$response->getReasonPhrase().'<br />';
-        echo 'Effective Url = '.$response->getEffectiveUrl().'<br />';
-
         return $this->render('SiteBundle:Homepage:index.html.twig', array('response' => $response));
     }
 } 
