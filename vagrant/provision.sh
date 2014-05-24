@@ -20,6 +20,8 @@ sed -i 's/;date.timezone.*=/date.timezone = UTC/' "/etc/php.ini"
 yum -y update
 yum -y install php-mbstring
 
+chmod 777 /var/run/php-fpm/php-fpm.sock
+
 echo "configuring php-fpm"
 sed -i 's/listen\s*=\s*.*/listen = \/var\/run\/php-fpm\/php-fpm.sock/' "/etc/php-fpm.d/www.conf"
 sed -i 's/user\s*=.*/user = www-data/' "/etc/php-fpm.d/www.conf"
