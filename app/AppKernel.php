@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             //Calldirek Bundles
             new Calldirek\UserBundle\UserBundle(),
             new Calldirek\SiteBundle\SiteBundle(),
+            new Calldirek\CustomerBundle\CustomerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
