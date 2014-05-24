@@ -1,7 +1,6 @@
 parameters:
 #    site.example.class: Calldirek\SiteBundle\Example
-    guzzle.response.class: GuzzleHttp\Message\Response
-    guzzle.client.class: GuzzleHttp\Client
+    precash.guzzle.client.class: Calldirek\SiteBundle\Service\PrecashClient
     precash.financial.services.config:
         base_url: "https://api.github.com"
         defaults:
@@ -17,9 +16,9 @@ services:
 #        class: %site.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
     financial.services:
-        class: %guzzle.client.class%
+        class: %precash.guzzle.client.class%
         arguments: [%precash.financial.services.config%]
 
     financial.services.partner:
-        class: %guzzle.client.class%
+        class: %precash.guzzle.client.class%
         arguments: [%precash.financial.services.partener.config%]
