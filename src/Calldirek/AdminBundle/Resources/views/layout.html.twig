@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+
+    {# View/Page title #}
+    <title>{% block title %}Welcome!{% endblock title %}</title>
+
+    {# Core CSS for general use (Twitter Bootstrap and accompanying icon library) #}
+    <link rel="stylesheet" type="text/css" media="all" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+
+
+
+    {# Core theme CSS #}
+    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('bundles/admin/css/sb-admin.css') }}" />
+
+    {# Any custom CSS for branding or view-specific content #}
+    {% block stylesheets %}{% endblock stylesheets %}
+
+    {# Favicon support #}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+</head>
+<body>
+
+{# Primary view header #}
+{#{% block header %}{% render(controller("SiteBundle:Homepage:header")) %}{% endblock header %}#}
+
+
+{# Any flash messages, which I'd assume we'll be positioning dynamically #}
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <aside class="alert alert-info sg-flash-message">
+        {{ flashMessage }}
+    </aside>
+{% endfor %}
+
+
+{# Primary view content block, which may contain sub-block content #}
+<section id="page-body" class="sg-page-body container">
+    {% block body %}
+        {% block content %} {% endblock content %}
+    {% endblock body %}
+</section>
+
+{# Primary view footer #}
+{#{% block footer %}{% include 'SiteBundle::footer.html.twig' %}{% endblock footer %}#}
+
+
+{# Core JS bundles for general use #}
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/admin/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+
+<!-- SB Admin Scripts - Include with every page -->
+<script type="text/javascript" src="{{ asset('bundles/admin/js/sb-admin.js') }}"></script>
+
+{# jQuery local fallback #}
+<script>window.jQuery || document.write('<script src="/js/jquery-2.1.0.min.js"><\/script>')</script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+{# Bootstrap local fallback(s) #}
+<script>window.jQuery.fn.modal || document.write('<script src="/js/bootstrap-3.1.1.min.js"><\/script>')</script>
+<script>
+    // Bootstrap CSS fallback
+    (function($) {
+        $(function() {
+            if ($('body').css('color') !== 'rgb(51, 51, 51)') {
+                $('head').prepend('<link rel="stylesheet" href="/css/bootstrap-3.1.1.min.css">');
+            }
+        });
+    })(window.jQuery);
+</script>
+
+{# Any custom JS bundles for use with view-specific content #}
+{% block javascripts %}{% endblock javascripts %}
+
+</body>
+</html>
