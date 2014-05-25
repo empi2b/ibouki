@@ -8,9 +8,6 @@ class HomepageController extends Controller
 {
     public function indexAction()
     {
-        $response = null;
-        $response = $this->container->get('financial.services')->getUser();
-
-        return $this->render('SiteBundle:Homepage:index.html.twig', array('response' => $response));
+        return $this->render('SiteBundle:Homepage:index.html.twig');
     }
 } 
