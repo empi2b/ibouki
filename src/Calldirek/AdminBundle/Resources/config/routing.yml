@@ -1,3 +1,12 @@
 admin_homepage:
     pattern:  /admin
-    defaults: { _controller: AdminBundle:AdminHome:index }
+    defaults: { _controller: AdminBundle:Admin:index }
+
+admin_register_agent:
+    pattern: /admin/register/agent
+    defaults: { _controller: AdminBundle:Admin:registerAgent }
+
+admin_register_admin_user:
+    pattern: /admin/register
+    defaults: { _controller: AdminBundle:Admin:registerAdmin }
+

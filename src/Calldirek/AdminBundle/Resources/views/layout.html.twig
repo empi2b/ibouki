@@ -43,7 +43,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
 </head>
-<body class="skin-blue">
+<body class="skin-blue wysihtml5-supported pace-done">
 
 <!-- header logo: style can be found in header.less -->
 <header class="header">
@@ -383,6 +383,10 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="{{ path('admin_register_agent') }}"><i class="fa fa-angle-double-right"></i> Add
+                                Agent</a></li>
+                        <li><a href="{{ path('admin_register_admin_user') }}"><i class="fa fa-angle-double-right"></i> Add Admin
+                                User</a></li>
                         <li><a href="pages/forms/general.html"><i class="fa fa-angle-double-right"></i> General Elements</a>
                         </li>
                         <li><a href="pages/forms/advanced.html"><i class="fa fa-angle-double-right"></i> Advanced
@@ -442,22 +446,20 @@
 
     <!-- Right side column. Contains the navbar and content of the page -->
     <aside class="right-side">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Dashboard
-                <small>Control panel</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
 
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    {% block sectiontitlepart1 %} {% endblock %}
 
-        {% block body %}
-            {% block content %} {% endblock content %}
-        {% endblock body %}
+                    <small>{% block sectiontitlepart2 %} {% endblock %}</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">{% block tabname %} {% endblock %}</li>
+                </ol>
+            </section>
+        {% block content %}{% endblock content %}
 
     </aside>
     <!-- /.right-side -->

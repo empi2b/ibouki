@@ -47,6 +47,10 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             } else {
                 $response = new RedirectResponse($this->router->generate('admin_homepage'));
             }
+        } else {
+
+            $referrerUrl = $request->headers->get('referrer');
+            $response = new RedirectResponse($this->router->generate($referrerUrl));
         }
 
         return $response;

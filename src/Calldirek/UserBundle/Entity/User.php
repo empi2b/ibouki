@@ -21,16 +21,16 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    public $id;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="agentId", type="integer", length=11)
-     * @Assert\NotBlank(message="Please enter a valid agentId.", groups={"Registration"})
-     * @Assert\Type(type="integer", message="AgentId must be numeric.")
+     * Assert\NotBlank(message="Please enter a valid agentId.", groups={"Registration"})
+     * Assert\Type(type="integer", message="AgentId must be numeric.")
      */
-    private $agentId;
+    public $agentId;
 
 
     /**
@@ -39,7 +39,7 @@ class User extends BaseUser
      * @ORM\Column(name="firstName", type="string", length=255)
      * @Assert\NotBlank(message="Please enter a first name", groups={"Registration", "Profile"})
      */
-    private $firstName;
+    public $firstName;
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class User extends BaseUser
      * @ORM\Column(name="lastName", type="string", length=255)
      * @Assert\NotBlank(message="Please enter a last name", groups={"Registration", "Profile"})
      */
-    private $lastName;
+    public $lastName;
 
     /**
      * @var string
@@ -57,7 +57,7 @@ class User extends BaseUser
      * @Assert\Length(min="10", minMessage="phone number must be minimum 10 digits long", groups={"Registration", "Profile"})
      * @Assert\Length(max="10", maxMessage="phone number must be max 10 digits long", groups={"Registration", "Profile"})
      */
-    private $phoneNumber;
+    public $phoneNumber;
 
     /**
      * @var string
@@ -66,7 +66,7 @@ class User extends BaseUser
      * @Assert\NotBlank(message="Please enter an address", groups={"Registration", "Profile"})
      *
      */
-    private $address;
+    public $address;
 
     /**
      * @var string
@@ -74,7 +74,7 @@ class User extends BaseUser
      * @ORM\Column(name="city", type="string", length=255)
      * @Assert\NotBlank(message="Please enter a city", groups={"Registration", "Profile"})
      */
-    private $city;
+    public $city;
 
     /**
      * @var string
@@ -82,7 +82,7 @@ class User extends BaseUser
      * @ORM\Column(name="state", type="string", length=255)
      * @Assert\NotBlank(message="Please select a state", groups={"Registration", "Profile"})
      */
-    private $state;
+    public $state;
 
 
     /**
@@ -94,36 +94,37 @@ class User extends BaseUser
      * @Assert\Length(max="5", maxMessage="zip code must be 5 digits long", groups={"Registration", "Profile"})
      * @Assert\Type(type="integer", message="Zip code must be numeric")
      */
-    private $zipCode;
+    public $zipCode;
 
     /**
      * @var \Datetime
      * @ORM\Column(type="datetime")
      */
-    private $createdDate;
+    public $createdDate;
 
     /**
      * @var \Datetime
      * @ORM\Column(type="datetime")
      */
-    private $lastUpdated;
+    public $lastUpdated;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $createdBy;
+    public $createdBy;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $lastUpdatedBy;
+    public $lastUpdatedBy;
 
 
     public function __construct()
     {
         parent::__construct();
+        $this->agentId = 0;
     }
 
 
